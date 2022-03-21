@@ -1,38 +1,38 @@
-import type { LabelledImage, nameboxes } from "./assets";
+import type { LabelledImage, nameboxes } from './assets';
 
 export interface Scene {
-  background_visible: boolean;
-  background: string;
-  background_offset_x: number;
-  background_offset_y: number;
-  background_scale: number;
+	background_visible: boolean;
+	background: string;
+	background_offset_x: number;
+	background_offset_y: number;
+	background_scale: number;
 
-  aya_visible: boolean;
-  aya_image: string;
+	aya_visible: boolean;
+	aya_image: string;
 
-  textbox_visible: boolean;
-  textbox_image: string;
-  textbox_text: string;
+	textbox_visible: boolean;
+	textbox_image: string;
+	textbox_text: string;
 
-  namebox_color: keyof typeof nameboxes | 'Narration';
-  namebox_text: string;
+	namebox_color: keyof typeof nameboxes | 'Narration';
+	namebox_text: string;
 
-  characters: SceneCharacter[];
+	characters: SceneCharacter[];
 
-  objective: string;
+	objective: string;
 
-  lovebar_visible: boolean;
-  lovebar_color: string;
-  lovebar_amount: number;
+	lovebar_visible: boolean;
+	lovebar_color: string;
+	lovebar_amount: number;
 
-  gui_elements_visible: boolean;
+	gui_elements_visible: boolean;
 }
 
 export interface SceneCharacter {
-  character: string;
-  visible: boolean;
-  image: string;
-  image_offset_x: number;
-  image_offset_y: number;
-  image_offset_scale: number;
+	character: string;
+	visible: boolean;
+	image: string;
+	image_offset_x: number;
+	image_offset_y: number;
+	image_offset_scale: number;
 }
