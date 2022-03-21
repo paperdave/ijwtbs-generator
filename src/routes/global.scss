@@ -1,0 +1,17 @@
+body {
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: "MADE Tommy Soft";
+  font-weight: 700;
+  src: url("/assets/fonts/MADE Tommy Soft Bold.otf");
+}
+
+#root {
+  font-family: "MADE Tommy Soft";
+}
