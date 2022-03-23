@@ -63,9 +63,10 @@
 
 		if (render_id !== my_id) return;
 
-		ctx.fillStyle = 'white';
+		ctx.fillStyle = 'black';
+		ctx.fillRect(0, 0, 1920, 1080);
 
-		ctx.clearRect(0, 0, 1920, 1080);
+		ctx.fillStyle = 'white';
 
 		if (scene.background_visible) {
 			let xMoveMax = 960 * scene.background_scale - 960;
