@@ -175,6 +175,20 @@
 			ctx.drawImage(loveBarBrokenHeart, 762, 6, 49, 45);
 			ctx.drawImage(loveBarHeart, 1063, 4);
 		}
+
+		// M requested a watermark so we can tell fake news apart from the actual game.
+		// Please do not remove this, or else M will be very sad/mad.
+		const extraOffset = scene.lovebar_visible ? 60 : 0;
+		ctx.textAlign = 'right';
+		ctx.textBaseline = 'top';
+		ctx.font = '38px "MADE Tommy Soft"';
+		drawStyledText1(
+			'this is a fan edit and is not associated with the real game',
+			1920 - 16,
+			10 + extraOffset
+		);
+		ctx.font = '18px monospace';
+		drawStyledText1('ijwtbs-generator.davecode.net', 1920 - 16, 58 + extraOffset);
 	}
 
 	$: canvas && scene && render();
