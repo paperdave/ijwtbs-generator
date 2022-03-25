@@ -15,3 +15,95 @@ body {
 #root {
 	font-family: 'MADE Tommy Soft';
 }
+
+main {
+	display: flex;
+	height: 100vh;
+}
+h1 {
+	white-space: nowrap;
+}
+h1,
+h2,
+p {
+	margin: 0;
+}
+h1,
+h2 {
+	color: #ff83a5;
+	text-align: center;
+	text-shadow: 2px 2px 0 black, -2px 2px 0 black, -2px -2px 0 black, 2px -2px 0 black;
+}
+p {
+	color: white;
+	text-shadow: 1px 1px 0 black, -1px 1px 0 black, -1px -1px 0 black, 1px -1px 0 black;
+}
+input,
+textarea,
+select,
+button {
+	background-color: white;
+	border: 1px solid black;
+	border-radius: 2px;
+}
+.hsplit {
+	display: flex;
+	gap: 1rem;
+}
+.hsplit > * {
+	flex: 1;
+}
+.row {
+	display: flex;
+	height: 20px;
+	gap: 1rem;
+}
+.row > :where(input, textarea, select, button) {
+	flex: 1;
+}
+:where(input, textarea, select, button):focus {
+	outline: none;
+	background-color: #ddd;
+}
+textarea {
+	resize: none;
+	height: 4rem;
+}
+a {
+	color: #fff;
+}
+.editor {
+	width: 600px;
+	overflow-y: scroll;
+	background: #555;
+	padding: 2rem 2rem;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+.renderer {
+	flex: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: black;
+}
+.small-input {
+	flex: 0 0 50px !important;
+	width: 50px;
+	-moz-appearance: textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+}
+
+.character-editor {
+	border-left: 0.25rem solid #ff83a5;
+	padding-left: 0.5rem;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	margin: 1rem 0;
+}

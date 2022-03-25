@@ -124,6 +124,14 @@
 			ctx.fillText(text, x, y);
 		}
 
+		function drawStyledText2(text: string, x: number, y: number) {
+			ctx.strokeStyle = '#f04674';
+			ctx.lineWidth = 8;
+			ctx.strokeText(text, x, y);
+			ctx.fillStyle = 'white';
+			ctx.fillText(text, x, y);
+		}
+
 		function drawWrappedText(text: string, x: number, y: number, wrap = 10000) {
 			const words = text.split(' ');
 
@@ -135,7 +143,7 @@
 
 				if (offsetX + newWidth > wrap) {
 					offsetX = 0;
-					offsetY += 40;
+					offsetY += 48;
 				}
 
 				drawStyledText1(words[i], x + offsetX, y + offsetY);
@@ -156,7 +164,7 @@
 			ctx.textBaseline = 'top';
 			ctx.font = '38px "MADE Tommy Soft"';
 
-			drawWrappedText(scene.textbox_text.replace(/\n/g, ' ').replace(/ +/g, ' '), 403, 867, 1114);
+			drawWrappedText(scene.textbox_text.replace(/\n/g, ' ').replace(/ +/g, ' '), 403, 869, 1114);
 		}
 
 		if (scene.lovebar_visible) {
@@ -175,6 +183,14 @@
 			);
 			ctx.drawImage(loveBarBrokenHeart, 762, 6, 49, 45);
 			ctx.drawImage(loveBarHeart, 1063, 4);
+		}
+
+		if (scene.objective) {
+			const y = scene.lovebar_visible ? 81 : 37;
+			ctx.textAlign = 'left';
+			ctx.textBaseline = 'top';
+			ctx.font = '38px "MADE Tommy Soft"';
+			drawStyledText2('* ' + scene.objective, 34, y);
 		}
 
 		// M requested a watermark so we can tell fake news apart from the actual game.
