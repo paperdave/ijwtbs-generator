@@ -33,7 +33,7 @@ export interface Character {
 	overlays?: LabelledImage[];
 }
 
-const ROOT = 'https://media.davecode.net/other-projects/ijwtbs-generator';
+const ROOT = 'https://media.davecode.net/project/ijwtbs-generator';
 
 export const backgrounds: LabelledImage[] = [
 	{ url: ROOT + '/backgrounds/school_gate.webp', name: 'Front Gate' },
