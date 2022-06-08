@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { backgrounds } from '$lib/assets';
+	import { showFilePicker } from '$lib/file-picker';
 	import type { Scene } from '$lib/scene-type';
 	export let scene: SvelteStore<Scene>;
 </script>
@@ -13,10 +14,29 @@
 	</div>
 	<div class="row">
 		<p>BG:</p>
-		<select bind:value={$scene.background} disabled={!$scene.background_visible}>
-			{#each backgrounds as spr}
-				<option value={spr.url}>{spr.name}</option>
-			{/each}
+		<select
+			bind:value={$scene.background}
+			disabled={!$scene.background_visible}
+			on:change={(ev) => {
+				if (ev.currentTarget.value === 'upload') {
+					showFilePicker().then((file) => {
+						$scene.background_custom = file.name;
+						$scene.background = URL.createObjectURL(file);
+					});
+				} else {
+					$scene.background_custom = null;
+					$scene.background = ev.currentTarget.value;
+				}
+			}}
+		>
+			<optgroup label="IJWTBS">
+				{#each backgrounds as spr}
+					<option value={spr.url}>{spr.name}</option>
+				{/each}
+			</optgroup>
+			<optgroup label="Custom">
+				<option value="upload">UPLOAD IMAGE</option>
+			</optgroup>
 		</select>
 	</div>
 </div>

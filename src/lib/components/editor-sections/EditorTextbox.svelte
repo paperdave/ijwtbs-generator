@@ -12,8 +12,10 @@
 		(() => {
 			if (chosen_character === 'Narration') {
 				$scene.namebox_color = 'Narration';
+				$scene.namebox_custom_color = '#ff5c5c';
 			} else if (chosen_character !== 'Custom') {
 				$scene.namebox_color = characters.find((x) => x.name === chosen_character).namebox;
+				$scene.namebox_custom_color = null;
 				$scene.namebox_text = chosen_character;
 			}
 		})();
@@ -56,18 +58,14 @@
 			{/each}
 		</optgroup>
 	</select>
-	{#if chosen_character === 'Custom'}
-		-
-		<select bind:value={$scene.namebox_color} disabled={!$scene.textbox_visible}>
-			{#each Object.keys(nameboxes) as color}
-				<option value={color}
-					>{color.slice(0, 1).toUpperCase()}{color.slice(1).toLowerCase()}</option
-				>
-			{/each}
-		</select>
-		<input type="text" bind:value={$scene.namebox_text} disabled={!$scene.textbox_visible} />
-	{/if}
 </div>
+
+{#if chosen_character === 'Custom'}
+	<div class="row">
+		<input type="color" style="width: 30px" bind:value={$scene.namebox_custom_color} />
+		<input type="text" bind:value={$scene.namebox_text} disabled={!$scene.textbox_visible} />
+	</div>
+{/if}
 
 <div class="row" style="height:4rem">
 	<textarea bind:value={$scene.textbox_text} disabled={!$scene.textbox_visible} />

@@ -1,8 +1,10 @@
-import type { LabelledImage, nameboxes } from './assets';
+import type { nameboxes } from './assets';
 
 export interface Scene {
 	background_visible: boolean;
 	background: string;
+	background_custom?: string; // this is a display name for the thrown together custom bg system
+
 	background_offset_x: number;
 	background_offset_y: number;
 	background_scale: number;
@@ -15,6 +17,7 @@ export interface Scene {
 	textbox_text: string;
 
 	namebox_color: keyof typeof nameboxes | 'Narration';
+	namebox_custom_color: string;
 	namebox_text: string;
 
 	characters: SceneCharacter[];

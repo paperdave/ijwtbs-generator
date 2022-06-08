@@ -10,6 +10,7 @@
 		LOVE_BAR_EMPTY,
 		nameboxes
 	} from '$lib/assets';
+	import { hslToRgb, rgbToHsl } from '$lib/color-utils';
 
 	import { loadImage } from '$lib/image-loader';
 
@@ -47,7 +48,9 @@
 		] = await Promise.all([
 			loadImage(scene.background),
 			loadImage(scene.textbox_image),
-			scene.namebox_color !== 'Narration' && loadImage(nameboxes[scene.namebox_color]),
+			scene.namebox_color !== 'Narration' &&
+				// load akane's namebox if custom color.
+				loadImage(scene.namebox_custom_color ? nameboxes.red : nameboxes[scene.namebox_color]),
 			loadImage(scene.aya_image),
 			loadImage(GUI_SETTINGS),
 			loadImage(GUI_SAVE),
@@ -94,7 +97,46 @@
 		if (scene.textbox_visible) {
 			ctx.drawImage(textbox, 0, 0);
 			if (scene.namebox_color !== 'Narration') {
-				ctx.drawImage(namebox, 1246, 1000);
+				if (scene.namebox_custom_color) {
+					const parsedHex = [
+						parseInt(scene.namebox_custom_color.substring(1, 3), 16),
+						parseInt(scene.namebox_custom_color.substring(3, 5), 16),
+						parseInt(scene.namebox_custom_color.substring(5, 7), 16)
+					] as [number, number, number];
+					const hsl = rgbToHsl(...parsedHex);
+					const hueShift = hsl[0];
+					const satShift = hsl[1] - 0.64;
+					const lightShift = hsl[2] - 0.6;
+					namebox.crossOrigin = 'Anonymous';
+
+					const secondaryCanvas = document.createElement('canvas');
+					secondaryCanvas.width = namebox.width;
+					secondaryCanvas.height = namebox.height;
+					const secondaryCtx = secondaryCanvas.getContext('2d');
+					secondaryCtx.drawImage(namebox, 0, 0);
+					const secondaryImageData = secondaryCtx.getImageData(0, 0, namebox.width, namebox.height);
+					const secondaryImageDataPixels = secondaryImageData.data;
+					for (let i = 0; i < secondaryImageDataPixels.length; i += 4) {
+						const [r, g, b] = [
+							secondaryImageDataPixels[i],
+							secondaryImageDataPixels[i + 1],
+							secondaryImageDataPixels[i + 2]
+						];
+						const [h, s, l] = rgbToHsl(r, g, b);
+						const newHue = (hueShift + h) % 360;
+						const newSat = Math.min(100, Math.max(satShift + s, 0));
+						const newLight = Math.min(100, Math.max(lightShift + l, 0));
+						const newRgb = hslToRgb(newHue, newSat, newLight);
+						secondaryImageDataPixels[i] = newRgb[0];
+						secondaryImageDataPixels[i + 1] = newRgb[1];
+						secondaryImageDataPixels[i + 2] = newRgb[2];
+					}
+					secondaryCtx.putImageData(secondaryImageData, 0, 0);
+					ctx.drawImage(secondaryCanvas, 1246, 1000);
+					secondaryCanvas.remove();
+				} else {
+					ctx.drawImage(namebox, 1246, 1000);
+				}
 			}
 		}
 

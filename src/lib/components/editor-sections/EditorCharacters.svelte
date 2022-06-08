@@ -22,7 +22,7 @@
 {#each $scene.characters as character, i}
 	<div class="character-editor">
 		<div class="hsplit">
-			<div class="row">
+			<div class="row mobile-vertical">
 				<select
 					value={character.character}
 					on:change={(ev) => {
@@ -75,7 +75,7 @@
 				<input type="checkbox" bind:checked={character.visible} />
 			</div>
 		</div>
-		<div class="row">
+		<div class="row mobile-vertical">
 			<button
 				disabled={i === 0}
 				on:click={() => {

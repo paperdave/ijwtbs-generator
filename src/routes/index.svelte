@@ -21,6 +21,7 @@
 		textbox_text: '"Clearly you do not own an airfryer, Aya."',
 
 		namebox_color: 'blue',
+		namebox_custom_color: '#ff5c5c',
 		namebox_text: 'Katsumi',
 
 		characters: [
@@ -42,21 +43,35 @@
 
 		gui_elements_visible: true
 	});
+
+	let width: number = 10000;
 </script>
+
+<svelte:window bind:innerWidth={width} />
 
 <main>
 	<div class="editor">
 		<h1>I Just Want to Make Fake Dialogue</h1>
 		<p>
-			This is a mock screenshot / meme generator for the hit video game<br />
+			This is a mock screenshot / meme generator for the hit video game
 			<a href="https://store.steampowered.com/app/1703610/I_Just_Want_to_be_Single/"
 				>I Just Want To Be Single</a
 			>. Assest ripped from game <a href="/proof.png">with permission.</a>
 		</p>
 
+		<p class="mobile-warn">use on your computer for best results</p>
+
+		{#if width <= 800}
+			<div class="renderer inline-renderer">
+				<Renderer scene={$scene} />
+			</div>
+		{/if}
+
 		<Editor {scene} />
 	</div>
-	<div class="renderer">
-		<Renderer scene={$scene} />
-	</div>
+	{#if width > 800}
+		<div class="renderer">
+			<Renderer scene={$scene} />
+		</div>
+	{/if}
 </main>

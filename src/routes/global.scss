@@ -107,3 +107,39 @@ input::-webkit-inner-spin-button {
 	gap: 1rem;
 	margin: 1rem 0;
 }
+
+.mobile-warn {
+	display: none;
+}
+
+@media  (max-width: 600px) {
+	.mobile-warn {
+		display: block;
+		color: #fff;
+		text-align: center;
+		font-size: 1.5rem;
+		margin: 1rem 0;
+	}
+
+	
+	.hsplit, .mobile-vertical {
+		flex-direction: column;
+	}
+	.row.mobile-vertical {
+		height: auto;
+	}
+}
+
+@media  (max-width: 1000px) {
+	main {
+	justify-content: center;
+	background-color: #454545;
+	}
+}
+
+.inline-renderer {
+	position: sticky;
+	top: -2rem;
+	width: calc(100% + 4rem);
+	margin: 0 -2rem;
+}
