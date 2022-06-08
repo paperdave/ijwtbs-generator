@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { characters } from '$lib/assets';
+	import { showFilePicker } from '$lib/file-picker';
 
 	import type { Scene } from '$lib/scene-type';
 	export let scene: SvelteStore<Scene>;
@@ -18,7 +19,7 @@
 		});
 	}}>ADD</button
 >
-{#each $scene.characters as character}
+{#each $scene.characters as character, i}
 	<div class="character-editor">
 		<div class="hsplit">
 			<div class="row">
@@ -26,35 +27,89 @@
 					value={character.character}
 					on:change={(ev) => {
 						if (ev.currentTarget.value === 'upload') {
+							showFilePicker().then((file) => {
+								$scene.characters[i].character = file.name;
+								$scene.characters[i].image = URL.createObjectURL(file);
+								console.log(file, $scene.characters[i].image);
+								character.is_custom = true;
+							});
 						} else {
 							character.character = ev.currentTarget.value;
+							character.is_custom = false;
 							character.image = characters.find(
 								(x) => x.name === ev.currentTarget.value
 							).sprites[0].url;
 						}
 					}}
 				>
-					{#each characters as char}
-						<option value={char.name}>{char.name}</option>
-					{/each}
-					<!-- <option value={'upload'}>UPLOAD</option> -->
+					{#if character.is_custom}
+						<option value={character.character}>custom: {character.character}</option>
+					{/if}
+					<optgroup label="IJWTBS">
+						<option value="Narration">Narration</option>
+						{#each characters.filter((x) => !x.thirdparty) as char}
+							{#if char.name !== 'Classmate'}
+								<option value={char.name}>{char.name}</option>
+							{/if}
+						{/each}
+					</optgroup>
+					<optgroup label="Custom">
+						<option value={'upload'}>UPLOAD IMAGE</option>
+						{#each characters.filter((x) => x.thirdparty) as char}
+							{#if char.name !== 'Classmate'}
+								<option value={char.name}>{char.name} - from {char.author}</option>
+							{/if}
+						{/each}
+					</optgroup>
 				</select>
-				<select bind:value={character.image}>
-					{#each characters.find((x) => x.name === character.character).sprites as img}
-						<option value={img.url}>{img.name}</option>
-					{/each}
-				</select>
+				{#if !character.is_custom}
+					<select bind:value={character.image}>
+						{#each characters.find((x) => x.name === character.character).sprites as img}
+							<option value={img.url}>{img.name}</option>
+						{/each}
+					</select>
+				{/if}
 			</div>
 			<div class="row">
-				<p>Is Visible:</p>
+				<p>Visible:</p>
 				<input type="checkbox" bind:checked={character.visible} />
 			</div>
 		</div>
 		<div class="row">
-			<button>Bottom</button>
-			<button>Back</button>
-			<button>Forward</button>
-			<button>Top</button>
+			<button
+				disabled={i === 0}
+				on:click={() => {
+					$scene.characters = [character].concat($scene.characters.filter((x) => x !== character));
+				}}>Bottom</button
+			>
+			<button
+				disabled={i === 0}
+				on:click={() => {
+					$scene.characters = [
+						...$scene.characters.slice(0, i - 1),
+						character,
+						$scene.characters[i - 1],
+						...$scene.characters.slice(i + 1, $scene.characters.length)
+					];
+				}}>Back</button
+			>
+			<button
+				disabled={i === $scene.characters.length - 1}
+				on:click={() => {
+					$scene.characters = [
+						...$scene.characters.slice(0, i),
+						$scene.characters[i + 1],
+						character,
+						...$scene.characters.slice(i + 2, $scene.characters.length)
+					];
+				}}>Forward</button
+			>
+			<button
+				disabled={i === $scene.characters.length - 1}
+				on:click={() => {
+					$scene.characters = $scene.characters.filter((x) => x !== character).concat(character);
+				}}>Top</button
+			>
 			-
 			<button
 				on:click={() => {

@@ -39,13 +39,22 @@
 <div class="row">
 	<p>Speaker:</p>
 	<select bind:value={chosen_character} disabled={!$scene.textbox_visible}>
-		<option value="Narration">Narration</option>
-		{#each characters as char}
-			{#if char.name !== 'Classmate'}
-				<option value={char.name}>{char.name}</option>
-			{/if}
-		{/each}
-		<option value="Custom">Custom Character</option>
+		<optgroup label="IJWTBS">
+			<option value="Narration">Narration</option>
+			{#each characters.filter((x) => !x.thirdparty) as char}
+				{#if char.name !== 'Classmate'}
+					<option value={char.name}>{char.name}</option>
+				{/if}
+			{/each}
+		</optgroup>
+		<optgroup label="Custom">
+			<option value="Custom">Custom Character</option>
+			{#each characters.filter((x) => x.thirdparty) as char}
+				{#if char.name !== 'Classmate'}
+					<option value={char.name}>{char.name} - from {char.author}</option>
+				{/if}
+			{/each}
+		</optgroup>
 	</select>
 	{#if chosen_character === 'Custom'}
 		-

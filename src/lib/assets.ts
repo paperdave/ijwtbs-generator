@@ -1,21 +1,21 @@
 /*
-  Okay so here's the deal with the IJWTBS assets:
+	Okay so here's the deal with the IJWTBS assets:
 
-  m is allowing me to rehost them, but doesn't want the unused ones to be available.
-  **They are here though.** you just have to uncomment them below.
+	m is allowing me to rehost them, but doesn't want the unused ones to be available.
+	**They are here though.** you just have to uncomment them below.
 
-  My justification is: if you're going to track down the source code for this silly website,
-  and getting to this point, you *probably* already mined the game yourself and already know about
-  these assets. The unused assets are also on a separate cdn so this file is the ONLY place that you'll
-  find the references to it.
+	My justification is: if you're going to track down the source code for this silly website,
+	and getting to this point, you *probably* already mined the game yourself and already know about
+	these assets. The unused assets are also on a separate cdn so this file is the ONLY place that you'll
+	find the references to it.
 
-  Now if you haven't already seen those images, I really suggest you DON'T because they're essentially
-  spoilers for what else you'll find. I mean you should have already played the game before touching the
-  generator at all.
+	Now if you haven't already seen those images, I really suggest you DON'T because they're essentially
+	spoilers for what else you'll find. I mean you should have already played the game before touching the
+	generator at all.
 
-  anyways whatever
+	anyways whatever
   
-  this file keeps all the urls to everything and is the data that is supplied to the main app.
+	this file keeps all the urls to everything and is the data that is supplied to the main app.
 */
 
 export interface LabelledImage {
@@ -31,6 +31,9 @@ export interface Character {
 	namebox: keyof typeof nameboxes;
 	sprites: LabelledImage[];
 	overlays?: LabelledImage[];
+	// these two are for thirdparty characters
+	thirdparty?: boolean;
+	author?: string;
 }
 
 const ROOT = 'https://media.davecode.net/project/ijwtbs-generator';
@@ -334,6 +337,47 @@ export const characters: Character[] = [
 				speakerName: 'Classmate 5',
 				devName: 'rc5'
 			}
+		]
+	},
+	{
+		thirdparty: true,
+		name: 'Oswo',
+		author: 'Edge Khan',
+		namebox: 'green',
+		sprites: [
+			{ url: ROOT + '/thirdparty/oswo/oswoflushed.png', name: 'Flushed' },
+			{ url: ROOT + '/thirdparty/oswo/oswoflustered.png', name: 'Flustered' },
+			{ url: ROOT + '/thirdparty/oswo/oswoglad.png', name: 'Glad' },
+			{ url: ROOT + '/thirdparty/oswo/oswohappy.png', name: 'Happy' },
+			{ url: ROOT + '/thirdparty/oswo/oswoisdone.png', name: 'Is done' },
+			{ url: ROOT + '/thirdparty/oswo/oswoisnotok.png', name: 'Not ok' },
+			{ url: ROOT + '/thirdparty/oswo/oswoneedsabreak.png', name: 'Needs a break' },
+			{ url: ROOT + '/thirdparty/oswo/oswonoglasses.png', name: '(no glasses)' },
+			{ url: ROOT + '/thirdparty/oswo/oswonervous.png', name: 'Nervous' },
+			{ url: ROOT + '/thirdparty/oswo/oswongnotok.png', name: 'Not ok (no glasses)' },
+			{ url: ROOT + '/thirdparty/oswo/oswongnotok2.png', name: 'Not ok alt (no glasses)' },
+			{ url: ROOT + '/thirdparty/oswo/oswongplead.png', name: 'Plead (no glasses)' },
+			{ url: ROOT + '/thirdparty/oswo/oswongspeak.png', name: 'Speak (no glasses)' },
+			{ url: ROOT + '/thirdparty/oswo/oswongspeakhand.png', name: 'Speak with hands (no glasses)' },
+			{ url: ROOT + '/thirdparty/oswo/oswongspinning.png', name: 'Spinning (no glasses)' },
+			{ url: ROOT + '/thirdparty/oswo/oswongupset.png', name: 'Upset (no glasses)' },
+			{ url: ROOT + '/thirdparty/oswo/oswoshooketh.png', name: 'Shooketh' },
+			{ url: ROOT + '/thirdparty/oswo/oswoshooketh2.png', name: 'Shooketh alt' },
+			{ url: ROOT + '/thirdparty/oswo/oswosigh.png', name: 'Sigh' },
+			{ url: ROOT + '/thirdparty/oswo/oswosurprised.png', name: 'Surprised' },
+			{ url: ROOT + '/thirdparty/oswo/oswosweatingagain.png', name: 'Sweating again' },
+			{ url: ROOT + '/thirdparty/oswo/oswothankful.png', name: 'Thankful' },
+			{ url: ROOT + '/thirdparty/oswo/oswoupset.png', name: 'Upset' },
+			{ url: ROOT + '/thirdparty/oswo/oswobagcontent.png', name: 'Content (bag)' },
+			{ url: ROOT + '/thirdparty/oswo/oswobagnervous.png', name: 'Nervous (bag)' },
+			{ url: ROOT + '/thirdparty/oswo/oswobagneutral.png', name: 'Neutral (bag)' },
+			{ url: ROOT + '/thirdparty/oswo/oswobagplead.png', name: 'Plead (bag)' },
+			{ url: ROOT + '/thirdparty/oswo/oswobagsigh.png', name: 'Sigh (bag)' },
+			{ url: ROOT + '/thirdparty/oswo/oswobagsnapping.png', name: 'Snapping (bag)' },
+			{ url: ROOT + '/thirdparty/oswo/oswobagsweatingdown.png', name: 'Sweating Down (bag)' },
+			{ url: ROOT + '/thirdparty/oswo/oswobagsweatingleft.png', name: 'Sweating Left (bag)' },
+			{ url: ROOT + '/thirdparty/oswo/oswobagsweatingright.png', name: 'Sweating Right (bag)' },
+			{ url: ROOT + '/thirdparty/oswo/oswobagsweatunsure.png', name: 'Sweat Unsure (bag)' },
 		]
 	}
 ];

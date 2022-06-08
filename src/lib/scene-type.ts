@@ -29,6 +29,7 @@ export interface Scene {
 }
 
 export interface SceneCharacter {
+	is_custom?: boolean;
 	character: string;
 	visible: boolean;
 	image: string;
