@@ -246,8 +246,8 @@
 			1920 - 16,
 			10 + extraOffset
 		);
-		ctx.font = '18px monospace';
-		drawStyledText1('ijwtbs-generator.davecode.net', 1920 - 16, 58 + extraOffset);
+		ctx.font = '20px monospace';
+		drawStyledText1('ijwtbs.paperdave.net', 1920 - 16, 58 + extraOffset);
 	}
 
 	$: canvas && scene && render();
